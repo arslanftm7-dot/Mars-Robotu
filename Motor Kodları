@@ -1,0 +1,70 @@
+int state=0;
+const int motorpin11=10;  // L298n #NI1
+const int motorpin12=9;   // L298n #NI2
+const int motorpin21=8;   // L298n #NI3
+const int motorpin22=7;   // L298n #NI4
+void setup() {
+  pinMode(motorpin11,OUTPUT);
+  pinMode(motorpin12,OUTPUT);
+  pinMode(motorpin21,OUTPUT);
+  pinMode(motorpin22,OUTPUT);
+  digitalWrite(motorpin11,LOW);
+  digitalWrite(motorpin12,LOW);
+  digitalWrite(motorpin21,LOW);
+  digitalWrite(motorpin22,LOW);
+  Serial.begin(9600);
+  }
+  void loop()  {
+  if (Serial.available()>0)
+  state=Serial.read();
+  {
+ if (state=='F')
+     {
+    digitalWrite(motorpin11,HIGH);
+    digitalWrite(motorpin12,LOW);     // Forward motion of rover
+    digitalWrite(motorpin21,HIGH);
+    digitalWrite(motorpin22,LOW);
+  }
+   else if(state=='B')
+    {
+      digitalWrite(motorpin11,LOW);
+      digitalWrite(motorpin12,HIGH);   // Backward motion of rover
+      digitalWrite(motorpin21,LOW);
+      digitalWrite(motorpin22,HIGH);
+      }
+      else if(state=='S')
+      {
+        digitalWrite(motorpin11,LOW);
+        digitalWrite(motorpin12,LOW);     // Stop
+        digitalWrite(motorpin21,LOW);
+        digitalWrite(motorpin22,LOW);  
+        }
+        else if(state=='L')
+      {
+        digitalWrite(motorpin11,HIGH);
+        digitalWrite(motorpin12,LOW);     // Left motion of rover
+        digitalWrite(motorpin21,LOW);
+        digitalWrite(motorpin22,HIGH);
+        }
+        else if(state=='R')
+      {
+        digitalWrite(motorpin11,LOW);
+        digitalWrite(motorpin12,HIGH);     // Right motion of rover
+        digitalWrite(motorpin21,HIGH);
+        digitalWrite(motorpin22,LOW);
+        }
+        else if(state=='l')
+      {
+        digitalWrite(motorpin11,LOW);
+        digitalWrite(motorpin12,HIGH);    // Backward Left motion of rover
+        digitalWrite(motorpin21,HIGH);
+        digitalWrite(motorpin22,LOW);
+        }
+        else if(state=='r')
+      {
+        digitalWrite(motorpin11,HIGH);
+        digitalWrite(motorpin12,LOW);     // Backward Right motion of rover
+        digitalWrite(motorpin21,LOW);
+        digitalWrite(motorpin22,HIGH);
+        }
+  }}
