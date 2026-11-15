@@ -1,0 +1,28 @@
+#include "MS5611.h"
+
+MS5611 MS5611(0x77);
+
+void setup() {
+  Serial.begin(115200);
+  while(!Serial);
+
+  if (!MS5611.begin()) {
+    Serial.println("MS5611 not found, check wiring!");
+    while (1);
+  }
+
+  // Basıncın yarı (50%) gelmesi sorununu çözen 2 kat düzeltme modu:
+  MS5611.reset(1); 
+}
+
+void loop() {
+  MS5611.read();
+  Serial.print("Temperature °C = "); 
+  float temp = MS5611.getTemperature();
+  Serial.print(temp, 2);
+  Serial.print("\tPressure mb = ");
+  float pressure = MS5611.getPressure();
+  Serial.print(pressure, 2);
+  Serial.println();
+  delay(1000);
+}
